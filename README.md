@@ -1,7 +1,7 @@
 vk-group-stats
 =============
 
-VK.com groups' statistics analizer
+VK.com groups' statistics analyzer
 
 Building
 =============
@@ -13,5 +13,5 @@ To build a project goto "build" folder and execute
 % make
 
 
-Details of a building proccess are available at "CMakeLists.txt" files
+Details of a building process are available at "CMakeLists.txt" files
 
