@@ -2,6 +2,7 @@ vk-group-stats
 =============
 
 VK.com groups' statistics analyzer
+
 Details of a building process are available at "CMakeLists.txt" files
 
 
