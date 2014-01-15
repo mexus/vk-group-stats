@@ -4,6 +4,7 @@
 #define protected public
 #include "../main/helpers/csv_parser.h"
 #undef protected
+#include "../main/helpers/log_helper.h"
 
 class CSVParserTest {
 public:
@@ -18,6 +19,7 @@ public:
 
 protected:
         csv::Parser parser;
+        Log log;
 
         static const std::string fileName;
         static void PrintLine(const csv::Parser::Line&);

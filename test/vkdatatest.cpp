@@ -3,7 +3,7 @@
 #include <map>
 #include <iostream>
 
-VkDataTest::VkDataTest() {
+VkDataTest::VkDataTest() : log("VkDataTest") {
 }
 
 bool VkDataTest::TestLoad() {
@@ -11,6 +11,7 @@ bool VkDataTest::TestLoad() {
 }
 
 bool VkDataTest::TestValues() const {
+        Log log(this->log, "TestValues");
         std::vector<DateHelper> dates;
         for (int i = 1; i <= 7; ++i)
                 dates.emplace_back(i, 1, 2014);
@@ -48,21 +49,22 @@ bool VkDataTest::TestValues() const {
                 }
         };
         if (vkData.membersIn != ins) {
-                std::cerr << "VkDataTest::TestValues " << "Wrong members 'in'" << std::endl;
+                log(Log::error) << "Wrong members 'in'" << Log::endl;
                 return false;
         } else if (vkData.membersOut != outs) {
-                std::cerr << "VkDataTest::TestValues " << "Wrong members 'out'" << std::endl;
+                log(Log::error) << "Wrong members 'out'" << Log::endl;
                 return false;
         } else
                 return true;
 }
 
 bool VkDataTest::AllTests() {
+        Log log(this->log, "AllTests");
 #define RunTest(function) \
     if (function()) \
-        std::cout << "VkDataTest" #function << " passed" << std::endl; \
+        log(Log::info) << #function << " passed" << Log::endl; \
     else { \
-        std::cout << "VkDataTest" #function << " failed" << std::endl; \
+        log(Log::info) << #function << " failed" << Log::endl; \
         res = false; \
     }
 
@@ -73,9 +75,9 @@ bool VkDataTest::AllTests() {
         }
 
         if (res)
-                std::cout << "VkDataTest: ALL TESTS PASSED" << std::endl;
+                log(Log::info) << "ALL TESTS PASSED" << Log::endl;
         else
-                std::cout << "VkDataTest: SOME TESTS FAILED" << std::endl;
+                log(Log::info) << "SOME TESTS FAILED" << Log::endl;
         return res;
 
 }

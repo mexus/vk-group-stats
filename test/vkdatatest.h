@@ -4,6 +4,7 @@
 #define protected public
 #include "../main/vk_data.h"
 #undef protected
+#include "../main/helpers/log_helper.h"
 
 class VkDataTest {
 public:
@@ -14,6 +15,7 @@ public:
         bool AllTests();
 private:
         VkData vkData;
+        Log log;
 
         static const std::string cvsFile;
 };

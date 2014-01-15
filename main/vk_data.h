@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include "helpers/date_helper.h"
+#include "helpers/log_helper.h"
 
 namespace csv {
         class Parser;
@@ -17,6 +18,7 @@ public:
 protected:
         std::map<DateHelper, unsigned long int> membersIn;
         std::map<DateHelper, unsigned long int> membersOut;
+        Log log;
 
         void ParseCSV(const csv::Parser& p);
 };

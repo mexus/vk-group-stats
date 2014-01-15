@@ -9,4 +9,14 @@ configure_file (
 	"${CMAKE_CURRENT_BINARY_DIR}/config.cpp"
 )
 
-add_executable(VkGroupStat-testing ${CMAKE_CURRENT_BINARY_DIR}/config.cpp main.cpp csvparsertest.cpp vkdatatest.cpp ../main/helpers/csv_parser.cpp ../main/helpers/csv_filter.cpp ../main/helpers/date_helper.cpp ../main/vk_data.cpp)
+add_executable(VkGroupStat-testing 
+        ${CMAKE_CURRENT_BINARY_DIR}/config.cpp
+        main.cpp
+        csvparsertest.cpp
+        vkdatatest.cpp
+        ../main/helpers/csv_parser.cpp
+        ../main/helpers/csv_filter.cpp
+        ../main/helpers/date_helper.cpp
+        ../main/helpers/log_helper.cpp
+        ../main/vk_data.cpp
+)

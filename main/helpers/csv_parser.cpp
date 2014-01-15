@@ -6,17 +6,18 @@
 
 namespace csv {
 
+        Log Parser::log("csv::Parser");
         const char Parser::separator;
 
-        std::ostream& Parser::Log(const std::string &type, size_t line) {
-                std::cout << "[CSVParser] " << "[" << type << "] Line " << line << ": ";
-                return std::cout;
-        }
-
-        std::ostream& Parser::Log(const std::string &type, size_t line, size_t pos) {
-                std::cout << "[CSVParser] [" << type << "] Line " << line << ", at " << pos << ": ";
-                return std::cout;
-        }
+//        std::ostream& Parser::Log(const std::string &type, size_t line) {
+//                std::cout << "[CSVParser] " << "[" << type << "] Line " << line << ": ";
+//                return std::cout;
+//        }
+//
+//        std::ostream& Parser::Log(const std::string &type, size_t line, size_t pos) {
+//                std::cout << "[CSVParser] [" << type << "] Line " << line << ", at " << pos << ": ";
+//                return std::cout;
+//        }
 
         void Parser::SetFilter(const Filter* f) {
                 filter = f;
@@ -61,13 +62,14 @@ namespace csv {
         }
 
         bool Parser::FilterLine(const Line& l) const {
+                Log log(this->log, "FilterLine");
                 if (filter) {
                         size_t fieldsCount = headFields.size();
                         for (size_t i = 0; i < fieldsCount; ++i) {
                                 auto &field = headFields[i];
                                 auto &val = l[i];
                                 if (!filter->CheckValue(field, val)) {
-                                        std::cout << "[Parser::FilterLine] Value {" << val << "} of field {" << field << "} is not allowed" << std::endl;
+                                        log(Log::error) << "Value {" << val << "} of field {" << field << "} is not allowed" << Log::endl;
                                         return false;
                                 }
                         }
@@ -76,6 +78,7 @@ namespace csv {
         }
 
         bool Parser::Load(const std::string &fileName) {
+                Log log(this->log, "Load");
                 headFields.clear();
                 lines.clear();
                 std::ifstream cvs(fileName);
@@ -88,7 +91,7 @@ namespace csv {
                                 ++cnt;
                                 if (cvs.good()) {
                                         if (str.empty())
-                                                Log("notice", cnt) << "Empty line" << std::endl;
+                                                log(Log::notice, cnt) << "Empty line" << Log::endl;
                                         else if (fieldsCount == 0) {
                                                 if (
                                                         !ParseLine(str, headFields, cnt) ||
@@ -104,11 +107,14 @@ namespace csv {
                                                 else {
                                                         if (line.size() != fieldsCount) {
                                                                 if (line.size() < headFields.size())
-                                                                        Log("warning", cnt) << "Not enough fields (" << line.size() << "/" << fieldsCount <<
-                                                                        ") in a line, adding blank fields" << std::endl;
+                                                                        log(Log::warning, cnt) <<
+                                                                                "Not enough fields (" << line.size() << "/" <<
+                                                                                fieldsCount <<
+                                                                                ") in a line, adding blank fields" << Log::endl;
                                                                 else if (line.size() > headFields.size())
-                                                                        Log("warning", cnt) << "Too many fields (" << line.size() << "/" << fieldsCount <<
-                                                                        ") in a line, ignoring extra fields" << std::endl;
+                                                                        log(Log::warning, cnt) << "Too many fields (" <<
+                                                                                line.size() << "/" << fieldsCount <<
+                                                                                ") in a line, ignoring extra fields" << Log::endl;
                                                                 line.resize(fieldsCount);
                                                         }
                                                         if (FilterLine(line))
@@ -125,11 +131,12 @@ namespace csv {
 
         std::string::const_iterator Parser::FindSeparator(const std::string &s,
                 const std::string::const_iterator &it, size_t lineNumber) {
+                Log log(Parser::log, "FindSeparator");
                 auto res = it;
                 if (res != s.end()) {
                         ++res;
                         if (res != s.end() && *res != separator) {
-                                Log("warning", lineNumber, res - s.begin() + 2) << "Here should be a separator" << std::endl;
+                                log(Log::warning, lineNumber, res - s.begin() + 2) << "Here should be a separator" << Log::endl;
                                 res = std::find(res + 1, s.end(), separator);
                         }
                 }
@@ -137,6 +144,7 @@ namespace csv {
         }
 
         bool Parser::ParseLine(const std::string& s, Line & l, size_t lineNumber) {
+                Log log(Parser::log, "ParseLine");
                 auto it = s.begin();
                 if (it == s.end())
                         l.emplace_back();
@@ -146,7 +154,7 @@ namespace csv {
                                 if (c == '"' || c == '\'') {
                                         auto closingQuote = (it + 1 == s.end()) ? s.end() : std::find(it + 1, s.end(), c);
                                         if (closingQuote == s.end()) {
-                                                Log("error", lineNumber, it - s.begin()) << "Close quote not found" << std::endl;
+                                                log(Log::error, lineNumber, it - s.begin()) << "Close quote not found" << Log::endl;
                                                 l.emplace_back();
                                                 break;
                                         } else {
@@ -155,7 +163,7 @@ namespace csv {
                                                 it = FindSeparator(s, closingQuote, lineNumber);
                                         }
                                 } else if (c == separator) {
-                                        Log("warning", lineNumber, it - s.begin()) << "Empty field" << std::endl;
+                                        log(Log::warning, lineNumber, it - s.begin()) << "Empty field" << Log::endl;
                                         l.emplace_back();
                                         ++it;
                                         if (it == s.end())

@@ -3,10 +3,11 @@
 #include "helpers/csv_filter.h"
 #include <iostream>
 
-VkData::VkData() {
+VkData::VkData() : log("VkData") {
 }
 
 bool VkData::LoadCSV(const std::string & f) {
+        Log log(this->log, "LoadCSV");
         using namespace csv;
         Parser parser;
         Filter filter;
@@ -18,13 +19,13 @@ bool VkData::LoadCSV(const std::string & f) {
         filter.AddPossibleValues("Parameter 1",{"New members", "Members lost"});
 
         if (!parser.Load(f)) {
-                std::cerr << "VkData::LoadCSV " << "Failed to load file" << std::endl;
+                log(Log::error) << "VkData::LoadCSV " << "Failed to load file" << Log::endl;
                 return false;
         } else {
                 if (!parser.FindFields(fields)) {
-                        std::cerr << "Wrong fields, should be: ";
-                        Parser::PrintFields(fields, std::cerr);
-                        std::cerr << std::endl;
+                        auto &s = log(Log::error) << "Wrong fields, should be: ";
+                        Parser::PrintFields(fields, s);
+                        s << Log::endl;
                         return false;
                 } else {
                         ParseCSV(parser);
@@ -34,6 +35,7 @@ bool VkData::LoadCSV(const std::string & f) {
 }
 
 void VkData::ParseCSV(const csv::Parser &p) {
+        Log log(this->log, "ParseCSV");
         using namespace csv;
         size_t dateField = p.GetFieldId("Date");
         size_t criterionField = p.GetFieldId("Criterion");
@@ -56,7 +58,7 @@ void VkData::ParseCSV(const csv::Parser &p) {
                                 else if (modeString == "Members lost")
                                         mode = modeLost;
                                 else {
-                                        std::cout << "VkData::ParseCSV " << "Unknown mode {" << modeString << "}" << std::endl;
+                                        log(Log::warning) << "Unknown mode {" << modeString << "}" << Log::endl;
                                         continue;
                                 }
                                 unsigned long int visitors = std::stoul(p.GetValue(i, valueField));

@@ -4,24 +4,26 @@
 
 using namespace csv;
 
-CSVParserTest::CSVParserTest() {
+CSVParserTest::CSVParserTest() : log("CSVParserTest") {
+        log.SetLogLevel(Log::debug);
 }
 
 void CSVParserTest::PrintLine(const Parser::Line & line) {
         std::cout << line.size() << " fields: ";
         for (auto &f : line)
                 std::cout << "[" << f << "] ";
-        std::cout << std::endl;
+//        std::cout << std::endl;
 }
 
 bool CSVParserTest::AllTests() {
+        Log log(this->log, "AllTests");
         bool res(true);
 #define RunTest(function) \
-        std::cout << "Running test " #function << std::endl; \
+        log(Log::info) << "Running test " #function << Log::endl; \
         if (function()) \
-                std::cout << "CSVParserTest " #function << " PASSED" << std::endl; \
+                log(Log::info) << #function << " PASSED" << Log::endl; \
         else { \
-                std::cout << "CSVParserTest " #function << " FAILED" << std::endl; \
+                log(Log::info) << #function << " FAILED" << Log::endl; \
                 res = false; \
         }
 
@@ -33,13 +35,14 @@ bool CSVParserTest::AllTests() {
         }
 
         if (res)
-                std::cout << "CSVParserTest: ALL TESTS PASSED" << std::endl;
+                log(Log::info) << "ALL TESTS PASSED" << Log::endl;
         else
-                std::cout << "CSVParserTest: SOME TESTS FAILED" << std::endl;
+                log(Log::info) << "SOME TESTS FAILED" << Log::endl;
         return res;
 }
 
 bool CSVParserTest::TestParseLine() const {
+        Log log(this->log, "TestParseLine");
         std::vector<std::string> testStrings{
                 "",
                 " ",
@@ -64,8 +67,8 @@ bool CSVParserTest::TestParseLine() const {
 
         auto n = testStrings.size();
         if (n != testResults.size()) {
-                std::cerr << "Bad test CSVParserTest::TestParseLine: testStrings.size() != testResults.size(): " <<
-                        n << " != " << testResults.size() << std::endl;
+                log(Log::error) << "Bad test CSVParserTest::TestParseLine: testStrings.size() != testResults.size(): " <<
+                        n << " != " << testResults.size() << Log::endl;
                 return false;
         } else {
                 for (decltype(n) i = 0; i < n; ++i) {
@@ -73,10 +76,11 @@ bool CSVParserTest::TestParseLine() const {
                         if (!Parser::ParseLine(testStrings[i], res, i))
                                 return false;
                         else if (res != testResults[i]) {
-                                std::cerr << "Failed test CSVParserTest::TestParseLine, line " << i << std::endl <<
+                                auto &s = log(Log::error) << "Failed test CSVParserTest::TestParseLine, line " << i << std::endl <<
                                         "\t{" << testStrings[i] << "}" << std::endl <<
                                         "\t";
                                 PrintLine(res);
+                                s << Log::endl;
                                 return false;
                         }
                 }
@@ -107,22 +111,24 @@ bool CSVParserTest::TestParseFile() {
 }
 
 bool CSVParserTest::TestParseFile(const std::vector<Parser::Line> & lines) {
+        Log log(this->log, "TestParseFile");
         if (parser.Load(fileName)) {
                 if (parser.headFields != Parser::Line{"Field one", "Field two", "Field three"}) {
-                std::cerr << "Wrong fields" << std::endl;
+                log(Log::error) << "Wrong fields" << Log::endl;
                 return false;
         } else {
                         auto linesCount = lines.size();
                         if (linesCount != parser.lines.size()) {
-                                std::cerr << "Wrong number of lines: " << parser.lines.size() << "/" << linesCount << std::endl;
+                                log(Log::error) << "Wrong number of lines: " << parser.lines.size() << "/" << linesCount << Log::endl;
                                 return false;
                         } else {
                                 for (decltype(linesCount) i = 0; i < linesCount; ++i) {
                                         if (parser.lines[i] != lines[i]) {
-                                                std::cerr << "Wrong line " << i << std::endl << "\t";
+                                                auto &s = log(Log::error) << "Wrong line " << i << std::endl << "\t";
                                                 PrintLine(lines[i]);
-                                                std::cerr << "\t";
+                                                s << "\n\t";
                                                 PrintLine(parser.lines[i]);
+                                                s << Log::endl;
                                                 return false;
                                         }
                                 }
@@ -134,6 +140,7 @@ bool CSVParserTest::TestParseFile(const std::vector<Parser::Line> & lines) {
 }
 
 bool CSVParserTest::TestGetters() const {
+        Log log(this->log, "TestParseFile");
         if (
                 parser.GetFieldId("Field one") != 0 ||
                 parser.GetFieldId("Field two") != 1 ||
@@ -141,7 +148,7 @@ bool CSVParserTest::TestGetters() const {
                 !parser.CheckFields({"Field one", "Field two", "Field three"}) ||
         !parser.FindFields({"Field three", "Field two", "Field one"})
         ) {
-        std::cerr << "Wrong fields (header)" << std::endl;
+        log(Log::error) << "Wrong fields (header)" << Log::endl;
         return false;
 } else {
                 if (
@@ -151,19 +158,19 @@ bool CSVParserTest::TestGetters() const {
                         parser.GetValue(1, 2) != "fields" ||
                         parser.GetValue(3, 2) != "string"
                         ) {
-                        std::cerr << "Get values failed" << std::endl;
+                        log(Log::error) << "Get values failed" << Log::endl;
                         return false;
                 } else {
                         try {
                                 parser.GetValue(100, 0);
-                                std::cerr << "Not received an exception for non-existent line" << std::endl;
+                                log(Log::error) << "Not received an exception for non-existent line" << Log::endl;
                                 return false;
                         } catch (const std::range_error&) {
                                 ;
                         }
                         try {
                                 parser.GetValue(0, 100);
-                                std::cerr << "Not received an exception for non-existent field" << std::endl;
+                                log(Log::error) << "Not received an exception for non-existent field" << Log::endl;
                                 return false;
                         } catch (const std::range_error&) {
                                 ;
