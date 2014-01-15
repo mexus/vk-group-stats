@@ -17,7 +17,7 @@ namespace csv {
                 std::cout << "[CSVParser] [" << type << "] Line " << line << ", at " << pos << ": ";
                 return std::cout;
         }
-        
+
         void Parser::SetFilter(const Filter* f) {
                 filter = f;
         }
@@ -59,14 +59,14 @@ namespace csv {
                 }
                 return true;
         }
-        
+
         bool Parser::FilterLine(const Line& l) const {
-                if (filter){
+                if (filter) {
                         size_t fieldsCount = headFields.size();
-                        for (size_t i = 0; i < fieldsCount; ++i){
+                        for (size_t i = 0; i < fieldsCount; ++i) {
                                 auto &field = headFields[i];
                                 auto &val = l[i];
-                                if (!filter->CheckValue(field, val)){
+                                if (!filter->CheckValue(field, val)) {
                                         std::cout << "[Parser::FilterLine] Value {" << val << "} of field {" << field << "} is not allowed" << std::endl;
                                         return false;
                                 }
@@ -74,7 +74,6 @@ namespace csv {
                 }
                 return true;
         }
-
 
         bool Parser::Load(const std::string &fileName) {
                 headFields.clear();
@@ -94,7 +93,7 @@ namespace csv {
                                                 if (
                                                         !ParseLine(str, headFields, cnt) ||
                                                         (!headFields.empty() && filter && !filter->CheckFields(headFields))
-                                                )
+                                                        )
                                                         return false;
                                                 else
                                                         fieldsCount = headFields.size();

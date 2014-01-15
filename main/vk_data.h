@@ -5,21 +5,20 @@
 #include <map>
 #include "helpers/date_helper.h"
 
-namespace csv{
+namespace csv {
         class Parser;
 }
 
-class VkData
-{
+class VkData {
 public:
-    VkData();
-    bool LoadCSV(const std::string &file);
+        VkData();
+        bool LoadCSV(const std::string &file);
 
 protected:
-    std::map<DateHelper, unsigned long int> membersIn;
-    std::map<DateHelper, unsigned long int> membersOut;
+        std::map<DateHelper, unsigned long int> membersIn;
+        std::map<DateHelper, unsigned long int> membersOut;
 
-    void ParseCSV(const csv::Parser& p);
+        void ParseCSV(const csv::Parser& p);
 };
 
 #endif // VKDATA_H

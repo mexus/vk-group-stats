@@ -1,6 +1,3 @@
-//#include "csvparsertest.h"
-//#include "vkdatatest.h"
-
 #include "../../test/csvparsertest.h"
 #include "../../test/vkdatatest.h"
 

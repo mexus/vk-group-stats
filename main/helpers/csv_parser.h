@@ -7,6 +7,7 @@
 #include "csv_filter.h"
 
 namespace csv {
+
         class Parser {
         public:
                 typedef std::vector<std::string> Line;
@@ -26,7 +27,7 @@ namespace csv {
                 Line headFields;
                 std::vector<Line> lines;
                 const Filter *filter = nullptr;
-                
+
                 bool FilterLine(const Line&) const;
 
                 static std::string::const_iterator FindSeparator(const std::string& str, const std::string::const_iterator &it, size_t lineNumber);

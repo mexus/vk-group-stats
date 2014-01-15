@@ -18,12 +18,12 @@ namespace csv {
         public:
                 Filter();
                 virtual ~Filter();
-                
+
                 void AddPossibleValue(const std::string& field, const std::string& value);
                 void AddPossibleValues(const std::string& field, const std::vector<std::string>& value);
                 void AddRequiredField(const std::string& field);
                 void AddRequiredFields(const std::vector<std::string>& fields);
-                
+
                 bool CheckValue(const std::string &key, const std::string &value) const;
                 bool CheckFields(const std::vector<std::string> &line) const;
         private:

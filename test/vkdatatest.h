@@ -5,18 +5,17 @@
 #include "../main/vk_data.h"
 #undef protected
 
-class VkDataTest
-{
+class VkDataTest {
 public:
-    VkDataTest();
-    bool TestLoad();
-    bool TestValues() const;
+        VkDataTest();
+        bool TestLoad();
+        bool TestValues() const;
 
-    bool AllTests();
+        bool AllTests();
 private:
-    VkData vkData;
+        VkData vkData;
 
-    static const std::string cvsFile;
+        static const std::string cvsFile;
 };
 
 #endif // VKDATATEST_H

@@ -5,25 +5,24 @@
 #include "../main/helpers/csv_parser.h"
 #undef protected
 
-class CSVParserTest
-{
+class CSVParserTest {
 public:
-    CSVParserTest();
+        CSVParserTest();
 
-    bool AllTests();
+        bool AllTests();
 
-    bool TestParseLine() const;
-    bool TestParseFileFiltered();
-    bool TestParseFile();
-    bool TestGetters() const;
+        bool TestParseLine() const;
+        bool TestParseFileFiltered();
+        bool TestParseFile();
+        bool TestGetters() const;
 
 protected:
-    csv::Parser parser;
+        csv::Parser parser;
 
-    static const std::string fileName;
-    static void PrintLine(const csv::Parser::Line&);
-    
-    bool TestParseFile(const std::vector<csv::Parser::Line> &);
+        static const std::string fileName;
+        static void PrintLine(const csv::Parser::Line&);
+
+        bool TestParseFile(const std::vector<csv::Parser::Line> &);
 };
 
 #endif // CSVPARSERTEST_H
