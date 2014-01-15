@@ -1,0 +1,8 @@
+//#include "csvparsertest.h"
+//#include "vkdatatest.h"
+
+#include "../../test/csvparsertest.h"
+#include "../../test/vkdatatest.h"
+
+const std::string CSVParserTest::fileName = "@TEST_DIR@/data/test.csv";
+const std::string VkDataTest::cvsFile = "@TEST_DIR@/data/vkontakte_group43702826_2014-01-01_2014-01-07-members.csv";
