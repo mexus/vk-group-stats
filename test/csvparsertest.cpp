@@ -1,5 +1,6 @@
 #include "csvparsertest.h"
 #include <iostream>
+#include <stdexcept>
 #include "../main/helpers/csv_filter.h"
 
 using namespace csv;
@@ -165,15 +166,15 @@ bool CSVParserTest::TestGetters() const {
                                 parser.GetValue(100, 0);
                                 log(Log::error) << "Not received an exception for non-existent line" << Log::endl;
                                 return false;
-                        } catch (const std::range_error&) {
-                                ;
+                        } catch (const std::range_error& e) {
+                                log(Log::info) << "Received an exception: " << e.what() << Log::endl;
                         }
                         try {
-                                parser.GetValue(0, 100);
+                                parser.GetValue(0, 300);
                                 log(Log::error) << "Not received an exception for non-existent field" << Log::endl;
                                 return false;
-                        } catch (const std::range_error&) {
-                                ;
+                        } catch (const std::range_error& e) {
+                                log(Log::info) << "Received an exception: " << e.what() << Log::endl;
                         }
                         return true;
                 }
