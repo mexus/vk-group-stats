@@ -1,7 +1,6 @@
 #include "csvparsertest.h"
 #include <iostream>
 #include <stdexcept>
-#include "../main/helpers/csv_filter.h"
 
 using namespace csv;
 

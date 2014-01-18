@@ -1,6 +1,5 @@
 #include "vk_data.h"
-#include "helpers/csv_parser.h"
-#include "helpers/csv_filter.h"
+#include "../csv/csv_parser.h"
 #include <iostream>
 
 VkData::VkData() : log("VkData") {

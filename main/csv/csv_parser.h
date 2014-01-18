@@ -4,7 +4,7 @@
 #include <memory>
 #include <iostream>
 
-#include "log_helper.h"
+#include "../logging/log.h"
 #include "csv_filter.h"
 
 namespace csv {

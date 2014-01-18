@@ -51,7 +51,7 @@ private:
 
 };
 
-#include "log_helper.tcc"
+#include "log.tcc"
 
 #endif	/* LOG_HELPER_H */
 

@@ -1,5 +1,5 @@
-#ifndef DATEHELPER_H
-#define DATEHELPER_H
+#ifndef DATE_H
+#define DATE_H
 
 #include <string>
 
@@ -22,4 +22,4 @@ protected:
 bool operator<(const DateHelper&, const DateHelper&);
 bool operator==(const DateHelper&, const DateHelper&);
 
-#endif // DATEHELPER_H
+#endif // DATE_H

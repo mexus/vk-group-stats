@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "log_helper.h"
+#include "log.h"
 
 template<class ...Args>
 std::ostream& Log::operator()(Log::LogLevel level, Args... args){

@@ -2,9 +2,9 @@
 #define VKDATATEST_H
 
 #define protected public
-#include "../main/vk_data.h"
+#include "../main/vk/vk_data.h"
 #undef protected
-#include "../main/helpers/log_helper.h"
+#include "../main/logging/log.h"
 
 class VkDataTest {
 public:

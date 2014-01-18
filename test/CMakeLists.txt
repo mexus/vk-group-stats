@@ -1,6 +1,3 @@
-cmake_minimum_required (VERSION 2.6)
-project(VkGroupStat-testing)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set (TEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 
@@ -14,9 +11,11 @@ add_executable(VkGroupStat-testing
         main.cpp
         csvparsertest.cpp
         vkdatatest.cpp
-        ../main/helpers/csv_parser.cpp
-        ../main/helpers/csv_filter.cpp
-        ../main/helpers/date_helper.cpp
-        ../main/helpers/log_helper.cpp
-        ../main/vk_data.cpp
+
+        ../main/csv/csv_filter.cpp
+        ../main/csv/csv_parser.cpp
+        ../main/date_helper/date.cpp
+        ../main/logging/log.cpp
+        ../main/vk/vk_data.cpp
+
 )

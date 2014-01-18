@@ -2,9 +2,9 @@
 #define CSVPARSERTEST_H
 
 #define protected public
-#include "../main/helpers/csv_parser.h"
+#include "../main/csv/csv_parser.h"
 #undef protected
-#include "../main/helpers/log_helper.h"
+#include "../main/logging/log.h"
 
 class CSVParserTest {
 public:

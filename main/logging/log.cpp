@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "log_helper.h"
+#include "log.h"
 
 std::mutex Log::lock;
 const std::map<Log::LogLevel, std::string> Log::levelMessages {

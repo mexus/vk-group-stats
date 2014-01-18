@@ -3,8 +3,8 @@
 
 #include <string>
 #include <map>
-#include "helpers/date_helper.h"
-#include "helpers/log_helper.h"
+#include "../date_helper/date.h"
+#include "../logging/log.h"
 
 namespace csv {
         class Parser;
