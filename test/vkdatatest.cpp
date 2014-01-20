@@ -3,7 +3,9 @@
 #include <map>
 #include <iostream>
 
-VkDataTest::VkDataTest() : log("VkDataTest") {
+Log VkDataTest::sLog("VkDataTest");
+
+VkDataTest::VkDataTest() {
 }
 
 bool VkDataTest::TestLoad() {
@@ -11,7 +13,7 @@ bool VkDataTest::TestLoad() {
 }
 
 bool VkDataTest::TestValues() const {
-        Log log(this->log, "TestValues");
+        S_LOG("TestValues");
         std::vector<DateHelper> dates;
         for (int i = 1; i <= 7; ++i)
                 dates.emplace_back(i, 1, 2014);
@@ -59,7 +61,7 @@ bool VkDataTest::TestValues() const {
 }
 
 bool VkDataTest::AllTests() {
-        Log log(this->log, "AllTests");
+        S_LOG("AllTests");
 #define RunTest(function) \
     if (function()) \
         log(Log::info) << #function << " passed" << Log::endl; \

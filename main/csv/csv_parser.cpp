@@ -6,18 +6,8 @@
 
 namespace csv {
 
-        Log Parser::log("csv::Parser");
+        Log Parser::sLog("csv::Parser");
         const char Parser::separator;
-
-//        std::ostream& Parser::Log(const std::string &type, size_t line) {
-//                std::cout << "[CSVParser] " << "[" << type << "] Line " << line << ": ";
-//                return std::cout;
-//        }
-//
-//        std::ostream& Parser::Log(const std::string &type, size_t line, size_t pos) {
-//                std::cout << "[CSVParser] [" << type << "] Line " << line << ", at " << pos << ": ";
-//                return std::cout;
-//        }
 
         void Parser::SetFilter(const Filter* f) {
                 filter = f;
@@ -62,7 +52,7 @@ namespace csv {
         }
 
         bool Parser::FilterLine(const Line& l) const {
-                Log log(this->log, "FilterLine");
+                S_LOG("FilterLine");
                 if (filter) {
                         size_t fieldsCount = headFields.size();
                         for (size_t i = 0; i < fieldsCount; ++i) {
@@ -78,7 +68,7 @@ namespace csv {
         }
 
         bool Parser::Load(const std::string &fileName) {
-                Log log(this->log, "Load");
+                S_LOG("Load");
                 headFields.clear();
                 lines.clear();
                 std::ifstream cvs(fileName);
@@ -131,7 +121,7 @@ namespace csv {
 
         std::string::const_iterator Parser::FindSeparator(const std::string &s,
                 const std::string::const_iterator &it, size_t lineNumber) {
-                Log log(Parser::log, "FindSeparator");
+                S_LOG("FindSeparator");
                 auto res = it;
                 if (res != s.end()) {
                         ++res;
@@ -144,7 +134,7 @@ namespace csv {
         }
 
         bool Parser::ParseLine(const std::string& s, Line & l, size_t lineNumber) {
-                Log log(Parser::log, "ParseLine");
+                S_LOG("ParseLine");
                 auto it = s.begin();
                 if (it == s.end())
                         l.emplace_back();

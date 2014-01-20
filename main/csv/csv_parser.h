@@ -28,16 +28,13 @@ namespace csv {
                 Line headFields;
                 std::vector<Line> lines;
                 const Filter *filter = nullptr;
-                static Log log;
+                static Log sLog;
 
                 bool FilterLine(const Line&) const;
 
                 static std::string::const_iterator FindSeparator(const std::string& str,
                         const std::string::const_iterator &it, size_t lineNumber);
                 static bool ParseLine(const std::string& str, Line &, size_t lineNumber);
-
-//                static std::ostream& Log(const std::string &type, size_t Line);
-//                static std::ostream& Log(const std::string &type, size_t Line, size_t pos);
 
                 static const char separator = ',';
         };

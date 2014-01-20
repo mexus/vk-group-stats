@@ -4,19 +4,20 @@
 
 using namespace csv;
 
-CSVParserTest::CSVParserTest() : log("CSVParserTest") {
-        log.SetLogLevel(Log::debug);
+Log CSVParserTest::sLog("CSVParserTest");
+
+CSVParserTest::CSVParserTest() {
+        sLog.SetLogLevel(Log::debug);
 }
 
 void CSVParserTest::PrintLine(const Parser::Line & line) {
         std::cout << line.size() << " fields: ";
         for (auto &f : line)
                 std::cout << "[" << f << "] ";
-//        std::cout << std::endl;
 }
 
 bool CSVParserTest::AllTests() {
-        Log log(this->log, "AllTests");
+        S_LOG("AllTests");
         bool res(true);
 #define RunTest(function) \
         log(Log::info) << "Running test " #function << Log::endl; \
@@ -42,7 +43,7 @@ bool CSVParserTest::AllTests() {
 }
 
 bool CSVParserTest::TestParseLine() const {
-        Log log(this->log, "TestParseLine");
+        S_LOG("TestParseLine");
         std::vector<std::string> testStrings{
                 "",
                 " ",
@@ -111,7 +112,7 @@ bool CSVParserTest::TestParseFile() {
 }
 
 bool CSVParserTest::TestParseFile(const std::vector<Parser::Line> & lines) {
-        Log log(this->log, "TestParseFile");
+        S_LOG("TestParseFile");
         if (parser.Load(fileName)) {
                 if (parser.headFields != Parser::Line{"Field one", "Field two", "Field three"}) {
                 log(Log::error) << "Wrong fields" << Log::endl;
@@ -140,7 +141,7 @@ bool CSVParserTest::TestParseFile(const std::vector<Parser::Line> & lines) {
 }
 
 bool CSVParserTest::TestGetters() const {
-        Log log(this->log, "TestParseFile");
+        S_LOG("TestParseFile");
         if (
                 parser.GetFieldId("Field one") != 0 ||
                 parser.GetFieldId("Field two") != 1 ||

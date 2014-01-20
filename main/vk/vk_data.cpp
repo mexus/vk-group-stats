@@ -2,11 +2,13 @@
 #include "../csv/csv_parser.h"
 #include <iostream>
 
-VkData::VkData() : log("VkData") {
+Log VkData::sLog("VkData");
+
+VkData::VkData() {
 }
 
 bool VkData::LoadCSV(const std::string & f) {
-        Log log(this->log, "LoadCSV");
+        S_LOG("LoadCSV");
         using namespace csv;
         Parser parser;
         Filter filter;
@@ -34,7 +36,7 @@ bool VkData::LoadCSV(const std::string & f) {
 }
 
 void VkData::ParseCSV(const csv::Parser &p) {
-        Log log(this->log, "ParseCSV");
+        S_LOG("ParseCSV");
         using namespace csv;
         size_t dateField = p.GetFieldId("Date");
         size_t criterionField = p.GetFieldId("Criterion");

@@ -18,7 +18,7 @@ public:
 protected:
         std::map<DateHelper, unsigned long int> membersIn;
         std::map<DateHelper, unsigned long int> membersOut;
-        Log log;
+        static Log sLog;
 
         void ParseCSV(const csv::Parser& p);
 };

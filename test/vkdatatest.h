@@ -15,7 +15,7 @@ public:
         bool AllTests();
 private:
         VkData vkData;
-        Log log;
+        static Log sLog;
 
         static const std::string cvsFile;
 };

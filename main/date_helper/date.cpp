@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <iostream>
 
+Log DateHelper::sLog("DateHelper");
+
 DateHelper::DateHelper(const std::string &s) : day(0), month(0), year(0), isValid(false) {
         isValid = Parse(s);
 }
@@ -11,8 +13,9 @@ DateHelper::DateHelper(int day, int month, int year) : day(day), month(month), y
 }
 
 bool DateHelper::Parse(const std::string & s) {
+        S_LOG("Parse");
         if (std::sscanf(s.c_str(), "%2d.%2d.%4d", &day, &month, &year) != 3) {
-                std::cerr << "DateHelper::Parse " << "Can't parse date {" << s << "}" << std::endl;
+                log(Log::error) << "Can't parse date {" << s << "}" << std::endl;
                 return false;
         } else
                 return true;

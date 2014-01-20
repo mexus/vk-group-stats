@@ -22,7 +22,7 @@ std::ostream Log::cnull(0);
 std::ostream* Log::cdefault(&std::cout);
 
 Log::Log(const std::string& label) : label(label) {
-
+        
 }
 
 Log::Log(const Log& old, const std::string& label) : label(old.label) {

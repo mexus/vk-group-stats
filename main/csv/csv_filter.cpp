@@ -10,6 +10,8 @@
 #include <iostream>
 
 namespace csv {
+        
+        Log Filter::sLog("Filter");
 
         Filter::Filter() {
 
@@ -39,10 +41,11 @@ namespace csv {
         }
 
         bool Filter::CheckFields(const std::vector<std::string>& line) const {
+                S_LOG("CheckFields");
                 for (auto &pair : values) {
                         auto& lookupField = pair.first;
                         if (std::find(line.begin(), line.end(), lookupField) == line.end()) {
-                                std::cout << "[Filter::CheckFields] Not found field {" << lookupField << "}" << std::endl;
+                                log(Log::debug) << "Not found field {" << lookupField << "}" << Log::endl;
                                 return false;
                         }
                 }

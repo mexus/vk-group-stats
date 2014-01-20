@@ -2,6 +2,7 @@
 #define DATE_H
 
 #include <string>
+#include "../logging/log.h"
 
 class DateHelper {
 public:
@@ -15,6 +16,7 @@ public:
 protected:
         int day, month, year;
         bool isValid;
+        static Log sLog;
 
         bool Parse(const std::string&);
 };

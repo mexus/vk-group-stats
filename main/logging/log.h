@@ -51,6 +51,9 @@ private:
 
 };
 
+#define S_LOG(label) \
+        static Log log(sLog, label)
+
 #include "log.tcc"
 
 #endif	/* LOG_HELPER_H */
