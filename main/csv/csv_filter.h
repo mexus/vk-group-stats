@@ -28,7 +28,7 @@ namespace csv {
                 bool CheckValue(const std::string &key, const std::string &value) const;
                 bool CheckFields(const std::vector<std::string> &line) const;
         protected:
-                static Log sLog;
+                static Log cLog;
         private:
                 std::map<std::string, std::vector<std::string> > values;
         };

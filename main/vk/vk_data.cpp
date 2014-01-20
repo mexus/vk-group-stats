@@ -2,7 +2,7 @@
 #include "../csv/csv_parser.h"
 #include <iostream>
 
-Log VkData::sLog("VkData");
+Log VkData::cLog("VkData");
 
 VkData::VkData() {
 }

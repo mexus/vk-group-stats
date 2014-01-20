@@ -4,7 +4,7 @@
 
 using namespace csv;
 
-Log CSVParserTest::sLog("CSVParserTest");
+Log CSVParserTest::cLog("CSVParserTest");
 
 CSVParserTest::CSVParserTest() {
 }

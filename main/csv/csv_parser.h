@@ -28,7 +28,7 @@ namespace csv {
                 Line headFields;
                 std::vector<Line> lines;
                 const Filter *filter = nullptr;
-                static Log sLog;
+                static Log cLog;
 
                 bool FilterLine(const Line&) const;
 

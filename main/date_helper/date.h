@@ -16,7 +16,7 @@ public:
 protected:
         int day, month, year;
         bool isValid;
-        static Log sLog;
+        static Log cLog;
 
         bool Parse(const std::string&);
 };

@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <iostream>
 
-Log DateHelper::sLog("DateHelper");
+Log DateHelper::cLog("DateHelper");
 
 DateHelper::DateHelper(const std::string &s) : day(0), month(0), year(0), isValid(false) {
         isValid = Parse(s);

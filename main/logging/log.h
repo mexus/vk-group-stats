@@ -58,7 +58,10 @@ private:
 };
 
 #define S_LOG(label) \
-        static Log log(sLog, label)
+        static Log log(cLog, label)
+
+#define D_LOG(label) \
+        Log log(cLog, label)
 
 #include "log.tcc"
 

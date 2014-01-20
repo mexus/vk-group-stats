@@ -3,7 +3,7 @@
 #include <map>
 #include <iostream>
 
-Log VkDataTest::sLog("VkDataTest");
+Log VkDataTest::cLog("VkDataTest");
 
 VkDataTest::VkDataTest() {
 }

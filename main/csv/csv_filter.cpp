@@ -11,7 +11,7 @@
 
 namespace csv {
         
-        Log Filter::sLog("Filter");
+        Log Filter::cLog("Filter");
 
         Filter::Filter() {
 

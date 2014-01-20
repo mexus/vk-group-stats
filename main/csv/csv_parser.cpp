@@ -6,7 +6,7 @@
 
 namespace csv {
 
-        Log Parser::sLog("csv::Parser");
+        Log Parser::cLog("csv::Parser");
         const char Parser::separator;
 
         void Parser::SetFilter(const Filter* f) {

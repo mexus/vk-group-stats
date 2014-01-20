@@ -19,7 +19,7 @@ public:
 
 protected:
         csv::Parser parser;
-        static Log sLog;
+        static Log cLog;
 
         static const std::string fileName;
         static void PrintLine(const csv::Parser::Line&);
