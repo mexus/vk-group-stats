@@ -12,6 +12,7 @@
 #include <string>
 #include <ostream>
 #include <map>
+#include <memory>
 
 class Log {
 public:
@@ -25,10 +26,14 @@ public:
         };
         
         Log(const std::string& label = std::string());
-        Log(const Log&, const std::string& label = std::string());
+        Log(const std::string& label, LogLevel level);
+        Log(const Log&, const std::string& label);
+        Log(const Log&, const std::string& label, LogLevel level);
         virtual ~Log();
         
-        void SetLogLevel(Log::LogLevel);
+        void OverrideLogLevel();
+        void OverrideLogLevel(Log::LogLevel);
+        static void SetLogLevel(Log::LogLevel);
         
         template<class ...Args>
         std::ostream& operator()(Log::LogLevel, Args... args);
@@ -41,10 +46,11 @@ private:
         static std::ostream cnull, *cdefault;
         
         std::string label;
-        LogLevel logLevel = Log::debug;
+        static LogLevel globalLogLevel;
+        std::shared_ptr<LogLevel> overrideLogLevel;
         
         void AddLabel(const std::string &newLabel);
-        
+        LogLevel GetLogLevel() const;
         template<class T, class ...Args>
         std::ostream& Print(std::ostream&, T t, Args... args) const;
         std::ostream& Print(std::ostream&) const;

@@ -6,6 +6,7 @@
  */
 
 #include <string>
+#include <memory>
 
 #include "log.h"
 
@@ -20,12 +21,23 @@ const std::map<Log::LogLevel, std::string> Log::levelMessages {
 };
 std::ostream Log::cnull(0);
 std::ostream* Log::cdefault(&std::cout);
+Log::LogLevel Log::globalLogLevel = Log::debug;
 
 Log::Log(const std::string& label) : label(label) {
         
 }
 
-Log::Log(const Log& old, const std::string& label) : label(old.label) {
+Log::Log(const std::string& label, LogLevel level) : label(label) {
+        OverrideLogLevel(level);
+}
+
+
+Log::Log(const Log& old, const std::string& label) : label(old.label), overrideLogLevel(old.overrideLogLevel) {
+        AddLabel(label);
+}
+
+Log::Log(const Log& old, const std::string& label, LogLevel level) : label(old.label) {
+        OverrideLogLevel(level);
         AddLabel(label);
 }
 
@@ -51,7 +63,23 @@ std::ostream& Log::Print(std::ostream& s) const {
 }
 
 void Log::SetLogLevel(Log::LogLevel l) {
-        logLevel = l;
+        globalLogLevel = l;
 }
+
+Log::LogLevel Log::GetLogLevel() const {
+        if (overrideLogLevel)
+                return *(overrideLogLevel.get());
+        else
+                globalLogLevel;
+}
+
+void Log::OverrideLogLevel(){
+        overrideLogLevel.reset();
+}
+
+void Log::OverrideLogLevel(Log::LogLevel l) {
+        overrideLogLevel = std::shared_ptr<LogLevel>(new LogLevel(l));
+}
+
 
 

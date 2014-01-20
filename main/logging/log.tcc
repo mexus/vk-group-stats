@@ -4,7 +4,7 @@
 
 template<class ...Args>
 std::ostream& Log::operator()(Log::LogLevel level, Args... args){
-        if (level >= logLevel){
+        if (level >= GetLogLevel()){
                 lock.lock();
                 if (label.empty())
                         return Print(*cdefault, levelMessages.at(level), args...);

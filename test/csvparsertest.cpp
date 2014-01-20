@@ -7,7 +7,6 @@ using namespace csv;
 Log CSVParserTest::sLog("CSVParserTest");
 
 CSVParserTest::CSVParserTest() {
-        sLog.SetLogLevel(Log::debug);
 }
 
 void CSVParserTest::PrintLine(const Parser::Line & line) {
