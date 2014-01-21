@@ -70,7 +70,7 @@ Log::LogLevel Log::GetLogLevel() const {
         if (overrideLogLevel)
                 return *(overrideLogLevel.get());
         else
-                globalLogLevel;
+                return globalLogLevel;
 }
 
 void Log::OverrideLogLevel(){
